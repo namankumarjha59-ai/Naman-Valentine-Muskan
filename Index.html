@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Naman ❤️ Muskan</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(120deg,#ff4d6d,#ff85a1);
+  color:white;
+  overflow:hidden;
+  height:100vh;
+}
+
+.container{
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:15px;
+  position:relative;
+  z-index:5;
+}
+
+.page{
+  display:none;
+  text-align:center;
+  max-width:500px;
+  animation:fade .8s ease;
+}
+.page.active{display:block}
+
+@keyframes fade{
+  from{opacity:0;transform:scale(.95)}
+  to{opacity:1;transform:scale(1)}
+}
+
+h1{
+  font-family:'Great Vibes',cursive;
+  font-size:3rem;
+  margin-bottom:15px;
+}
+
+p{
+  font-size:1.1rem;
+  line-height:1.6;
+  margin-bottom:20px;
+}
+
+button,input{
+  border:none;
+  padding:12px 22px;
+  border-radius:25px;
+  font-size:1rem;
+  margin:6px;
+}
+
+button{
+  cursor:pointer;
+  background:white;
+  color:#ff4d6d;
+  transition:.3s;
+}
+button:hover{transform:scale(1.05)}
+
+input{
+  width:100%;
+  max-width:260px;
+  text-align:center;
+}
+
+.photos img{
+  width:100%;
+  border-radius:15px;
+  margin-bottom:15px;
+}
+
+.no{
+  position:absolute;
+  background:black;
+  color:white;
+}
+
+.music-btn{
+  position:fixed;
+  bottom:15px;
+  right:15px;
+  z-index:20;
+}
+
+/* Hearts */
+.heart{
+  position:absolute;
+  width:18px;height:18px;
+  background:red;
+  transform:rotate(45deg);
+  animation:float 8s linear infinite;
+  opacity:.6;
+}
+.heart:before,.heart:after{
+  content:"";
+  position:absolute;
+  width:18px;height:18px;
+  background:red;
+  border-radius:50%;
+}
+.heart:before{top:-9px;left:0}
+.heart:after{left:-9px;top:0}
+
+@keyframes float{
+  0%{transform:translateY(100vh) rotate(45deg)}
+  100%{transform:translateY(-10vh) rotate(45deg)}
+}
+
+/* Confetti */
+.confetti{
+  position:absolute;
+  width:8px;height:8px;
+  background:white;
+  animation:fall 3s linear infinite;
+}
+
+@keyframes fall{
+  0%{transform:translateY(-10vh)}
+  100%{transform:translateY(110vh)}
+}
+</style>
+</head>
+
+<body>
+
+<audio id="music" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+<button class="music-btn" onclick="toggleMusic()">🎵 Music</button>
+
+<div class="container">
+
+<!-- Password Page -->
+<div class="page active">
+  <h1>One Question 💌</h1>
+  <p>When was our first kiss?</p>
+  <input type="password" id="password" placeholder="DD/MM/YYYY">
+  <br>
+  <button onclick="checkPassword()">Unlock ❤️</button>
+</div>
+
+<!-- Page 1 -->
+<div class="page">
+  <h1>Happy Valentine's Day 💖</h1>
+  <p>
+    Dear Muskan,<br>
+    This is my heart on a website…<br>
+    — Yours, <b>Naman</b> ❤️
+  </p>
+  <button onclick="next(1)">Next ➡️</button>
+</div>
+
+<!-- Page 2 -->
+<div class="page">
+  <h1>Our Memories 📸</h1>
+  <div class="photos">
+    <img src="photo1.jpg">
+    <img src="photo2.jpg">
+    <img src="photo3.jpg">
+  </div>
+  <button onclick="prev(0)">⬅️ Back</button>
+  <button onclick="next(2)">Next ➡️</button>
+</div>
+
+<!-- Page 3 -->
+<div class="page">
+  <h1>Muskan 🌸</h1>
+  <p>
+    You are my safest place,<br>
+    my favorite smile,<br>
+    my forever 💕
+  </p>
+  <button onclick="prev(1)">⬅️ Back</button>
+  <button onclick="next(3)">Next ➡️</button>
+</div>
+
+<!-- Proposal -->
+<div class="page">
+  <h1>Will You Be My Valentine? 💍</h1>
+  <p>Naman ❤️ Muskan — Forever?</p>
+  <button onclick="yes()">YES 😍</button>
+  <button class="no" id="noBtn">NO 😅</button>
+</div>
+
+<!-- Final Page -->
+<div class="page">
+  <h1>I Love You Muskan ❤️</h1>
+  <p>
+    Thank you for choosing me.<br>
+    Today, tomorrow, always — it's you 💑<br><br>
+    Happy Valentine's Day 💖<br>
+    — Naman
+  </p>
+</div>
+
+</div>
+
+<script>
+const pages=document.querySelectorAll('.page');
+function next(i){pages.forEach(p=>p.classList.remove('active'));pages[i+1].classList.add('active')}
+function prev(i){pages.forEach(p=>p.classList.remove('active'));pages[i].classList.add('active')}
+
+function checkPassword(){
+  const pass=document.getElementById('password').value;
+  if(pass==="13/12/2025"){next(0)}
+  else{alert("Hmm… you know this ❤️")}
+}
+
+// NO button escape 😅
+const noBtn=document.getElementById("noBtn");
+noBtn.addEventListener("mouseover",()=>{
+  noBtn.style.left=Math.random()*80+"%";
+  noBtn.style.top=Math.random()*80+"%";
+});
+
+// YES + confetti
+function yes(){
+  next(4);
+  for(let i=0;i<80;i++){
+    let c=document.createElement("div");
+    c.className="confetti";
+    c.style.left=Math.random()*100+"vw";
+    c.style.background=`hsl(${Math.random()*360},100%,70%)`;
+    c.style.animationDuration=2+Math.random()*3+"s";
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),4000);
+  }
+}
+
+// Music
+const music=document.getElementById("music");
+let playing=false;
+function toggleMusic(){
+  playing?music.pause():music.play();
+  playing=!playing;
+}
+
+// Hearts
+for(let i=0;i<25;i++){
+  let h=document.createElement("div");
+  h.className="heart";
+  h.style.left=Math.random()*100+"vw";
+  h.style.animationDuration=5+Math.random()*5+"s";
+  document.body.appendChild(h);
+}
+</script>
+
+</body>
+</html>
